@@ -30,7 +30,7 @@ set showcmd "show incomplete cmds down the bottom
 set showmode "show current mode down the bottom
 
 " When scrolling off-screen do so 3 lines at a time, not 1
-set scrolloff=3
+set scrolloff=5
 set sidescrolloff=7
 set sidescroll=1
 
@@ -263,22 +263,30 @@ imap <down> <C-o>gj
 map E ge
 
 " Gui Setup *******************************************************************
-if has("gui_running")
+if ! has("gui_running")
     set t_Co=256
+    set background=light 
+    colorscheme peaksea
+endif
 
+if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
-        colorscheme vibrantink
+        set background=light 
+        colorscheme peaksea
     else
-        colorscheme vibrantink
+        set background=light 
+        colorscheme peaksea
         set guitablabel=%M%t
         set lines=999
         set columns=999
     endif
+    
     if has("gui_mac") || has("gui_macvim")
         set guifont=Inconsolata:h18
         set fuoptions=maxvert,maxhorz
         set guioptions-=T
+        set guioptions-=m
         set guioptions+=c
         set guioptions-=rL
         
@@ -349,7 +357,7 @@ function! s:alignFitTables()
   endif
 endfunction
 command! -nargs=0 AlignFitTables call s:alignFitTables()
-:noremap <Leader>t :AlignFitTables<CR>
+:noremap <Leader>at :AlignFitTables<CR>
 
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
@@ -380,6 +388,28 @@ command! -nargs=? HighlightLongLines call s:HighlightLongLines('<args>')
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |
 " -----------------------------------------------------------------------------
+
+" rails.vim *******************************************************************
+
+" Leader shortcuts for Rails commands
+map <Leader>m :Rmodel<space>
+map <Leader>c :Rcontroller<space>
+map <Leader>v :Rview<space>
+map <Leader>s :Rspec<space>
+map <Leader>u :Rintegrationtest<space>
+map <Leader>p :Rsteps<space>
+map <Leader>tm :RTmodel<space>
+map <Leader>tc :RTcontroller<space>
+map <Leader>tv :RTview<space>
+map <Leader>ts :RTspec<space>
+map <Leader>tu :RTintegrationtest<space>
+map <Leader>tp :RTsteps<space>
+map <Leader>sm :RSmodel<space>
+map <Leader>sc :RScontroller<space>
+map <Leader>sv :RSview<space>
+map <Leader>ss :RSspec<space>
+map <Leader>su :RSintegrationtest<space>
+map <Leader>sp :RSsteps<space>
 
 " NERDTree ********************************************************************
 :noremap <Leader>n :NERDTreeToggle<CR>
@@ -412,6 +442,9 @@ let g:fuzzy_path_display = 'relative_path'
 " bufexplorer *****************************************************************
 :noremap <Leader>bb :BufExplorer<CR>
 
+" tabular *********************************************************************
+:noremap <Leader>ah :Tabularize /=>/<CR>
+
 augroup malkomalko
   autocmd!
 
@@ -433,37 +466,20 @@ augroup malkomalko
 
   autocmd Syntax css syn sync minlines=50
 
-  autocmd User Rails nnoremap <buffer> <Leader>r :<C-U>Rake<CR>
-  autocmd User Rails nnoremap <buffer> <Leader>R :<C-U>.Rake<CR>
-  autocmd User Rails Rnavcommand features features -suffix=*.feature -glob=**/* -default=web()
   autocmd User Rails Rnavcommand steps features/step_definitions -suffix=_steps.rb -glob=**/* -default=web()
   autocmd User Rails Rnavcommand blueprint spec/blueprints -suffix=_blueprint.rb -glob=**/* -default=model()
   autocmd User Rails Rnavcommand factory spec/factories -suffix=_factory.rb -glob=**/* -default=model()
 augroup END
 
-" Leader shortcuts for Rails commands
-map <Leader>m :Rmodel<space>
-map <Leader>c :Rcontroller<space>
-map <Leader>v :Rview<space>
-map <Leader>s :Rspec<space>
-map <Leader>tm :RTmodel<space>
-map <Leader>tc :RTcontroller<space>
-map <Leader>tv :RTview<space>
-map <Leader>ts :RTspec<space>
-map <Leader>sm :RSmodel<space>
-map <Leader>sc :RScontroller<space>
-map <Leader>sv :RSview<space>
-map <Leader>ss :RSspec<space>
-
 " Hide search highlighting
 map <Leader>h :set invhls<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>e
+" Normal mode
 map <Leader>ee :e <C-R>=expand("%:p:h") . "/"<CR>
 
 " Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>t
+" Normal mode
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/"<CR>
 
 " <Leader>F to begin searching with ack
@@ -472,9 +488,3 @@ map <Leader>F :Ack<space>
 " Tab navigation
 nmap <Leader>tn :tabnext<CR>
 nmap <Leader>tp :tabprevious<CR>
-
-" search next/previous -- center in page
-nmap n nzz
-nmap N Nzz
-nmap * *Nzz
-nmap # #nzz

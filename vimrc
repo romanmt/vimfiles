@@ -411,6 +411,15 @@ map <Leader>ss :RSspec<space>
 map <Leader>su :RSintegrationtest<space>
 map <Leader>sp :RSsteps<space>
 
+" specky **********************************************************************
+let g:speckyQuoteSwitcherKey = "<Leader>'"
+let g:speckyRunRdocKey = "<Leader>d"
+let g:speckySpecSwitcherKey = "<Leader>J"
+let g:speckyRunSpecKey = "<Leader>r"
+let g:speckyRunSpecCmd = "spec -fs"
+let g:speckyRunRdocCmd = "fri -L -f plain"
+let g:speckyWindowType = 1
+
 " NERDTree ********************************************************************
 :noremap <Leader>n :NERDTreeToggle<CR>
 

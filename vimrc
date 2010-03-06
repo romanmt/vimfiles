@@ -478,9 +478,6 @@ let g:fuzzy_path_display = 'relative_path'
 " tabular *********************************************************************
 :noremap <Leader>ah :Tabularize /=>/<CR>
 
-" neocomplcache ***************************************************************
-let g:NeoComplCache_EnableAtStartup = 0
-
 augroup malkomalko
   autocmd!
 

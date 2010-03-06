@@ -473,7 +473,9 @@ let g:fuzzy_ceiling=20000
 let g:fuzzy_path_display = 'relative_path'
 
 " bufexplorer *****************************************************************
-:noremap <Leader>bb :BufExplorer<CR>
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerShowDirectories=0
+let g:bufExplorerShowRelativePath=1
 
 " tabular *********************************************************************
 :noremap <Leader>ah :Tabularize /=>/<CR>

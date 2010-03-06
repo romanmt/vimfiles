@@ -385,6 +385,30 @@ command! -nargs=? HighlightLongLines call s:HighlightLongLines('<args>')
 :noremap <Leader>l :HighlightLongLines<CR>
 :noremap <Leader>L :HighlightLongLines 1000<CR>
 
+" IRB {{{
+autocmd FileType irb inoremap <buffer> <silent> <CR> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<CR>
+
+function! s:RunShellCommand(cmdline)
+  botright new
+
+  setlocal buftype=nofile
+  setlocal bufhidden=delete
+  setlocal nobuflisted
+  setlocal noswapfile
+  setlocal nowrap
+  setlocal filetype=shell
+  setlocal syntax=shell
+
+  call setline(1,a:cmdline)
+  call setline(2,substitute(a:cmdline,'.','=','g'))
+  execute 'silent $read !'.escape(a:cmdline,'%#')
+  setlocal nomodifiable
+  1
+endfunction
+
+" Shell
+command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
+
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |
 " -----------------------------------------------------------------------------
@@ -454,6 +478,9 @@ let g:fuzzy_path_display = 'relative_path'
 " tabular *********************************************************************
 :noremap <Leader>ah :Tabularize /=>/<CR>
 
+" neocomplcache ***************************************************************
+let g:NeoComplCache_EnableAtStartup = 0
+
 augroup malkomalko
   autocmd!
 
@@ -472,6 +499,14 @@ augroup malkomalko
   autocmd FileType gitcommit              setlocal spell
   autocmd FileType ruby                   setlocal comments=:#\  tw=79
   autocmd FileType vim                    setlocal et sw=2 sts=2 keywordprg=:help
+  
+  " Turn on language specific omnifuncs
+  autocmd FileType python set omnifunc=pythoncomplete#Complete
+  autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
   autocmd Syntax css syn sync minlines=50
 

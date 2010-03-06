@@ -86,10 +86,10 @@ command! ShowSearchIndex :call s:ShowCurrentSearchIndex(1,'')
 "                @/ and direction is restored at return from function
 "                We must have op invocation at the toplevel of mapping even though this
 "                makes mappings longer.
-nnoremap <silent>n :let v:errmsg=''<cr>:silent! norm! n<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
-nnoremap <silent>N :let v:errmsg=''<cr>:silent! norm! N<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
-nnoremap <silent>* :let v:errmsg=''<cr>:silent! norm! *<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
-nnoremap <silent># :let v:errmsg=''<cr>:silent! norm! #<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
+nnoremap <silent>n :let v:errmsg=''<cr>:silent! norm! nzz<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
+nnoremap <silent>N :let v:errmsg=''<cr>:silent! norm! Nzz<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
+nnoremap <silent>* :let v:errmsg=''<cr>:silent! norm! *zz<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
+nnoremap <silent># :let v:errmsg=''<cr>:silent! norm! #zz<cr>:call <SID>ShowCurrentSearchIndex(0,'!')<cr>
 
 
 nnoremap <silent>\/        :call <SID>ShowCurrentSearchIndex(1,'')<cr>

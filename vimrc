@@ -436,11 +436,11 @@ map <Leader>su :RSintegrationtest<space>
 map <Leader>sp :RSsteps<space>
 
 " specky **********************************************************************
-let g:speckyQuoteSwitcherKey = "<Leader>'"
+"let g:speckyQuoteSwitcherKey = "<Leader>'"
 let g:speckyRunRdocKey = "<Leader>d"
 let g:speckySpecSwitcherKey = "<Leader>J"
-let g:speckyRunSpecKey = "<Leader>r"
-let g:speckyRunSpecCmd = "spec -fs"
+"let g:speckyRunSpecKey = "<Leader>r"
+"let g:speckyRunSpecCmd = "spec -fs"
 let g:speckyRunRdocCmd = "fri -L -f plain"
 let g:speckyWindowType = 1
 
@@ -509,6 +509,8 @@ augroup malkomalko
 
   autocmd Syntax css syn sync minlines=50
 
+  autocmd User Rails nnoremap <buffer> <Leader>r :<C-U>Rake<CR>
+  autocmd User Rails nnoremap <buffer> <Leader>R :<C-U>.Rake<CR>
   autocmd User Rails Rnavcommand steps features/step_definitions -suffix=_steps.rb -glob=**/* -default=web()
   autocmd User Rails Rnavcommand blueprint spec/blueprints -suffix=_blueprint.rb -glob=**/* -default=model()
   autocmd User Rails Rnavcommand factory spec/factories -suffix=_factory.rb -glob=**/* -default=model()

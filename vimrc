@@ -23,8 +23,12 @@ set guicursor=a:blinkon0
 " Set to auto read when a file is changed from the outside
 set autoread
 
-"store lots of :cmdline history
-set history=200
+" store lots of :cmdline history
+set history=1000
+
+" switch mark keys
+nnoremap ' `
+nnoremap ` '
 
 set showcmd "show incomplete cmds down the bottom
 set showmode "show current mode down the bottom
@@ -228,7 +232,7 @@ set splitbelow splitright
 
 "Split then hop to new buffer
 :noremap <Leader>V :vsp^M^W^W<cr>
-:noremap <Leader>H :split^M^W^W<cr>
+:noremap <Leader>S :split^M^W^W<cr>
 
 " Searching *******************************************************************
 set hlsearch   " highlight search
@@ -239,7 +243,7 @@ set smartcase  " Ignore case when searching lowercase
 " Mappings ********************************************************************
 imap jj <Esc>
 imap uu _
-imap hh =>
+imap hh <Space>=><Space>"
 
 " File Stuff ******************************************************************
 filetype plugin indent on
@@ -250,6 +254,7 @@ set backspace=indent,eol,start
 set number  " Show line numbers
 set matchpairs+=<:>
 set vb t_vb=  " Turn off bell
+set visualbell " Visual bell
 set ttimeoutlen=50  " Make Esc work faster
 
 " Cursor Movement *************************************************************
@@ -272,11 +277,9 @@ endif
 if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
-        set background=light 
-        colorscheme peaksea
+        colorscheme vividchalk
     else
-        set background=light 
-        colorscheme peaksea
+        colorscheme vividchalk
         set guitablabel=%M%t
         set lines=999
         set columns=999
@@ -385,6 +388,30 @@ command! -nargs=? HighlightLongLines call s:HighlightLongLines('<args>')
 :noremap <Leader>l :HighlightLongLines<CR>
 :noremap <Leader>L :HighlightLongLines 1000<CR>
 
+" toggles the quickfix window.
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+  else
+    if exists("g:jah_Quickfix_Win_Height")
+      execute "copen " . g:jah_Quickfix_Win_Height
+    else
+      execute "copen " 
+    endif
+  endif
+endfunction
+
+" used to track the quickfix window
+augroup QFixToggle
+ autocmd!
+ autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+ autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
+augroup END
+
+" toggle Quickfix window with <leader>q
+map <silent> <leader>q :QFix<CR>
+
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |
 " -----------------------------------------------------------------------------
@@ -424,7 +451,16 @@ let NERDTreeMouseMode=1
 let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','tags','\.png','\.jpg','\.gif']
 
 " fuzzyfinder *****************************************************************
+map <silent> <Leader>f :FuzzyFinderTextMate<CR>
 
+" limit number of results shown for performance
+let g:fuzzy_matching_limit=60
+
+" ignore stuff that can't be openned, and generated files
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
+
+" increate the number of files scanned for very large projects
+let g:fuzzy_ceiling=20000
 
 " bufexplorer *****************************************************************
 let g:bufExplorerDefaultHelp=0
@@ -433,6 +469,9 @@ let g:bufExplorerShowRelativePath=1
 
 " tabular *********************************************************************
 :noremap <Leader>ah :Tabularize /=>/<CR>
+
+" conque **********************************************************************
+:noremap <Leader>r :ConqueTermSplit<space>
 
 " taglist *********************************************************************
 :noremap <Leader>tl :TlistToggle<CR>
@@ -493,3 +532,17 @@ map <Leader>F :Ack<space>
 " Tab navigation
 nmap <Leader>tn :tabnext<CR>
 nmap <Leader>tp :tabprevious<CR>
+nmap <Leader>tt :tabnew<CR>
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+" Window mappings
+nmap <Leader>ww <C-w><C-w>
+nmap <Leader>wm <C-w><C-_>
+nmap <Leader>we <C-w><C-=>
+
+" Buffer mappings
+nmap <Leader>bd :bd<CR>
+nmap <Leader>bn :bn<CR>
+nmap <Leader>bp :bp<CR>

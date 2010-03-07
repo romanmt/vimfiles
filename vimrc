@@ -435,15 +435,6 @@ map <Leader>ss :RSspec<space>
 map <Leader>su :RSintegrationtest<space>
 map <Leader>sp :RSsteps<space>
 
-" specky **********************************************************************
-"let g:speckyQuoteSwitcherKey = "<Leader>'"
-let g:speckyRunRdocKey = "<Leader>d"
-let g:speckySpecSwitcherKey = "<Leader>J"
-"let g:speckyRunSpecKey = "<Leader>r"
-"let g:speckyRunSpecCmd = "spec -fs"
-let g:speckyRunRdocCmd = "fri -L -f plain"
-let g:speckyWindowType = 1
-
 " NERDTree ********************************************************************
 :noremap <Leader>n :NERDTreeToggle<CR>
 
@@ -457,8 +448,7 @@ let NERDTreeMouseMode=1
 let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','tags','\.png','\.jpg','\.gif']
 
 " fuzzyfinder_textmate ********************************************************
-:noremap <Leader>f :FuzzyFinderTextMate<CR>
-":noremap <Leader>F :FuzzyFinderTag<CR>
+:noremap <Leader>f :FuzzyFinder<CR>
 
 " limit number of results shown for performance
 let g:fuzzy_matching_limit=60

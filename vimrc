@@ -385,30 +385,6 @@ command! -nargs=? HighlightLongLines call s:HighlightLongLines('<args>')
 :noremap <Leader>l :HighlightLongLines<CR>
 :noremap <Leader>L :HighlightLongLines 1000<CR>
 
-" IRB {{{
-autocmd FileType irb inoremap <buffer> <silent> <CR> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<CR>
-
-function! s:RunShellCommand(cmdline)
-  botright new
-
-  setlocal buftype=nofile
-  setlocal bufhidden=delete
-  setlocal nobuflisted
-  setlocal noswapfile
-  setlocal nowrap
-  setlocal filetype=shell
-  setlocal syntax=shell
-
-  call setline(1,a:cmdline)
-  call setline(2,substitute(a:cmdline,'.','=','g'))
-  execute 'silent $read !'.escape(a:cmdline,'%#')
-  setlocal nomodifiable
-  1
-endfunction
-
-" Shell
-command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |
 " -----------------------------------------------------------------------------
@@ -447,20 +423,8 @@ let NERDTreeMouseMode=1
 " Ignore
 let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','tags','\.png','\.jpg','\.gif']
 
-" fuzzyfinder_textmate ********************************************************
-:noremap <Leader>f :FuzzyFinder<CR>
+" fuzzyfinder *****************************************************************
 
-" limit number of results shown for performance
-let g:fuzzy_matching_limit=60
-
-" ignore stuff that can't be opened, and generated files
-let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;vendor/**;coverage/**;tmp/**;rdoc/**"
-
-" increase the number of files scanned for very large projects
-let g:fuzzy_ceiling=20000
-
-" display relative path
-let g:fuzzy_path_display = 'relative_path'
 
 " bufexplorer *****************************************************************
 let g:bufExplorerDefaultHelp=0
@@ -469,6 +433,12 @@ let g:bufExplorerShowRelativePath=1
 
 " tabular *********************************************************************
 :noremap <Leader>ah :Tabularize /=>/<CR>
+
+" taglist *********************************************************************
+:noremap <Leader>tl :TlistToggle<CR>
+let g:Tlist_GainFocus_On_ToggleOpen=1
+let g:Tlist_Close_On_Select=1
+let g:Tlist_WinWidth=50
 
 augroup malkomalko
   autocmd!
@@ -499,8 +469,8 @@ augroup malkomalko
 
   autocmd Syntax css syn sync minlines=50
 
-  autocmd User Rails nnoremap <buffer> <Leader>r :<C-U>Rake<CR>
-  autocmd User Rails nnoremap <buffer> <Leader>R :<C-U>.Rake<CR>
+  " autocmd User Rails nnoremap <buffer> <Leader>r :<C-U>Rake<CR>
+  " autocmd User Rails nnoremap <buffer> <Leader>R :<C-U>.Rake<CR>
   autocmd User Rails Rnavcommand steps features/step_definitions -suffix=_steps.rb -glob=**/* -default=web()
   autocmd User Rails Rnavcommand blueprint spec/blueprints -suffix=_blueprint.rb -glob=**/* -default=model()
   autocmd User Rails Rnavcommand factory spec/factories -suffix=_factory.rb -glob=**/* -default=model()
@@ -511,7 +481,7 @@ map <Leader>h :set invhls<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
 " Normal mode
-map <Leader>ee :e <C-R>=expand("%:p:h") . "/"<CR>
+map <Leader>e :e <C-R>=expand("%:p:h") . "/"<CR>
 
 " Opens a tab edit command with the path of the currently edited file filled in
 " Normal mode

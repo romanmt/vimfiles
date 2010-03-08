@@ -254,6 +254,13 @@ if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
         colorscheme darkspectrum
+				set guifont=Inconsolata\ 16
+        set guioptions-=T
+        set guioptions-=m
+        set guioptions+=c
+        set guioptions-=rL
+				set lines=999
+        set columns=999
     else
         colorscheme darkspectrum
         set guitablabel=%M%t

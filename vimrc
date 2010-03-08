@@ -26,10 +26,6 @@ set autoread
 " store lots of :cmdline history
 set history=1000
 
-" switch mark keys
-nnoremap ' `
-nnoremap ` '
-
 set showcmd "show incomplete cmds down the bottom
 set showmode "show current mode down the bottom
 
@@ -51,7 +47,6 @@ set formatoptions-=o "dont continue comments when pushing o/O
 " Invisible characters *********************************************************
 set listchars=trail:⋅,nbsp:⋅,tab:>-
 set list
-:noremap <Leader>i :set list!<CR> " Toggle invisible chars
 
 " Status Line *****************************************************************
 set statusline=%f "tail of the filename
@@ -230,20 +225,11 @@ set si " smartindent	(local to buffer)
 set equalalways " Multiple windows, when created, are equal in size
 set splitbelow splitright
 
-"Split then hop to new buffer
-:noremap <Leader>V :vsp^M^W^W<cr>
-:noremap <Leader>S :split^M^W^W<cr>
-
 " Searching *******************************************************************
 set hlsearch   " highlight search
 set incsearch  " incremental search, search as you type
 set ignorecase " Ignore case when searching 
 set smartcase  " Ignore case when searching lowercase
-
-" Mappings ********************************************************************
-imap jj <Esc>
-imap uu _
-imap hh <Space>=><Space>"
 
 " File Stuff ******************************************************************
 filetype plugin indent on
@@ -257,16 +243,6 @@ set vb t_vb=  " Turn off bell
 set visualbell " Visual bell
 set ttimeoutlen=50  " Make Esc work faster
 
-" Cursor Movement *************************************************************
-" Make cursor move by visual lines instead of file lines (when wrapping)
-map <up> gk
-map k gk
-imap <up> <C-o>gk
-map <down> gj
-map j gj
-imap <down> <C-o>gj
-map E ge
-
 " Gui Setup *******************************************************************
 if ! has("gui_running")
     set t_Co=256
@@ -277,9 +253,9 @@ endif
 if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
-        colorscheme vividchalk
+        colorscheme darkspectrum
     else
-        colorscheme vividchalk
+        colorscheme darkspectrum
         set guitablabel=%M%t
         set lines=999
         set columns=999
@@ -308,17 +284,6 @@ if has("gui_running")
         nmap <D-[> <<
         vmap <D-[> <<
         imap <D-[> <C-O><<
-        
-        " TABS: open tabs with command-<tab number>
-        map <silent> <D-1> :tabnew 1<CR>
-        map <silent> <D-2> :tabnew 2<CR>
-        map <silent> <D-3> :tabnew 3<CR>
-        map <silent> <D-4> :tabnew 4<CR>
-        map <silent> <D-5> :tabnew 5<CR>
-        map <silent> <D-6> :tabnew 6<CR>
-        map <silent> <D-7> :tabnew 7<CR>
-        map <silent> <D-8> :tabnew 8<CR>
-        map <silent> <D-9> :tabnew 9<CR>
     endif
 endif
 
@@ -346,7 +311,6 @@ function! s:RebuildTagsFile()
   !ctags -R --exclude=.svn --exclude=.git --exclude=coverage --exclude=files --exclude=public --exclude=log --exclude=tmp *
 endfunction
 command! -nargs=0 RebuildTagsFile call s:RebuildTagsFile()
-:noremap <Leader>] :RebuildTagsFile<CR>
 
 " Align Fit Tables
 function! s:alignFitTables()
@@ -360,7 +324,6 @@ function! s:alignFitTables()
   endif
 endfunction
 command! -nargs=0 AlignFitTables call s:alignFitTables()
-:noremap <Leader>at :AlignFitTables<CR>
 
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
@@ -385,8 +348,6 @@ function! s:HighlightLongLines(width)
     endif
 endfunction
 command! -nargs=? HighlightLongLines call s:HighlightLongLines('<args>')
-:noremap <Leader>l :HighlightLongLines<CR>
-:noremap <Leader>L :HighlightLongLines 1000<CR>
 
 " toggles the quickfix window.
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
@@ -409,37 +370,88 @@ augroup QFixToggle
  autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 
-" toggle Quickfix window with <leader>q
+" -----------------------------------------------------------------------------  
+" |                              Mappings                                     |
+" -----------------------------------------------------------------------------
+
+nnoremap ' `
+nnoremap ` '
+
+imap hh <Space>=><Space>"
+imap jj <Esc>
+imap uu _
+
+map <up> gk
+map k gk
+imap <up> <C-o>gk
+map <down> gj
+map j gj
+imap <down> <C-o>gj
+map E ge
+
+nnoremap Y y$
+
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+
+omap <silent> iw <Plug>CamelCaseMotion_iw
+vmap <silent> iw <Plug>CamelCaseMotion_iw
+omap <silent> ib <Plug>CamelCaseMotion_ib
+vmap <silent> ib <Plug>CamelCaseMotion_ib
+omap <silent> ie <Plug>CamelCaseMotion_ie
+vmap <silent> ie <Plug>CamelCaseMotion_ie
+
+noremap <Leader>ah :Tabularize /=>/<CR>
+noremap <Leader>at :AlignFitTables<CR>
+nmap <Leader>bd :bd<CR>
+nmap <Leader>bn :bn<CR>
+nmap <Leader>bp :bp<CR>
+map <Leader>c :Rcontroller<space>
+map <Leader>e :e <C-R>=expand("%:p:h") . "/"<CR>
+map <silent> <Leader>f :FuzzyFinderTextMate<CR>
+map <Leader>F :Ack<space>
+map <Leader>h :set invhls<CR>
+noremap <Leader>i :set list!<CR>
+noremap <Leader>l :HighlightLongLines<CR>
+noremap <Leader>L :HighlightLongLines 1000<CR>
+map <Leader>m :Rmodel<space>
+noremap <Leader>n :NERDTreeToggle<CR>
+map <Leader>p :Rsteps<space>
 map <silent> <leader>q :QFix<CR>
+noremap <Leader>r :ConqueTermSplit<space>
+map <Leader>s :Rspec<space>
+noremap <Leader>S :split^M^W^W<cr>
+map <Leader>sc :RScontroller<space>
+map <Leader>sm :RSmodel<space>
+map <Leader>sp :RSsteps<space>
+map <Leader>ss :RSspec<space>
+map <Leader>su :RSintegrationtest<space>
+map <Leader>sv :RSview<space>
+map <Leader>tc :RTcontroller<space>
+map <Leader>te :tabe <C-R>=expand("%:p:h") . "/"<CR>
+noremap <Leader>tl :TlistToggle<CR>
+map <Leader>tm :RTmodel<space>
+nmap <Leader>tn :tabnext<CR>
+nmap <Leader>tp :tabprevious<CR>
+map <Leader>ts :RTspec<space>
+nmap <Leader>tt :tabnew<CR>
+map <Leader>tu :RTintegrationtest<space>
+map <Leader>tv :RTview<space>
+map <Leader>u :Rintegrationtest<space>
+map <Leader>v :Rview<space>
+noremap <Leader>V :vsp^M^W^W<cr>
+nmap <Leader>we <C-w><C-=>
+nmap <Leader>wm <C-w><C-_>
+nmap <leader>ww <C-w><C-w>_
+noremap <Leader>y :YRShow<CR>
+noremap <Leader>] :RebuildTagsFile<CR>
 
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |
 " -----------------------------------------------------------------------------
 
-" rails.vim *******************************************************************
-
-" Leader shortcuts for Rails commands
-map <Leader>m :Rmodel<space>
-map <Leader>c :Rcontroller<space>
-map <Leader>v :Rview<space>
-map <Leader>s :Rspec<space>
-map <Leader>u :Rintegrationtest<space>
-map <Leader>p :Rsteps<space>
-map <Leader>tm :RTmodel<space>
-map <Leader>tc :RTcontroller<space>
-map <Leader>tv :RTview<space>
-map <Leader>ts :RTspec<space>
-map <Leader>tu :RTintegrationtest<space>
-map <Leader>tp :RTsteps<space>
-map <Leader>sm :RSmodel<space>
-map <Leader>sc :RScontroller<space>
-map <Leader>sv :RSview<space>
-map <Leader>ss :RSspec<space>
-map <Leader>su :RSintegrationtest<space>
-map <Leader>sp :RSsteps<space>
-
 " NERDTree ********************************************************************
-:noremap <Leader>n :NERDTreeToggle<CR>
 
 " User instead of Netrw when doing an edit /foobar
 let NERDTreeHijackNetrw=1
@@ -451,7 +463,6 @@ let NERDTreeMouseMode=1
 let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','tags','\.png','\.jpg','\.gif']
 
 " fuzzyfinder *****************************************************************
-map <silent> <Leader>f :FuzzyFinderTextMate<CR>
 
 " limit number of results shown for performance
 let g:fuzzy_matching_limit=60
@@ -467,14 +478,7 @@ let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowDirectories=0
 let g:bufExplorerShowRelativePath=1
 
-" tabular *********************************************************************
-:noremap <Leader>ah :Tabularize /=>/<CR>
-
-" conque **********************************************************************
-:noremap <Leader>r :ConqueTermSplit<space>
-
 " taglist *********************************************************************
-:noremap <Leader>tl :TlistToggle<CR>
 let g:Tlist_GainFocus_On_ToggleOpen=1
 let g:Tlist_Close_On_Select=1
 let g:Tlist_WinWidth=50
@@ -508,41 +512,7 @@ augroup malkomalko
 
   autocmd Syntax css syn sync minlines=50
 
-  " autocmd User Rails nnoremap <buffer> <Leader>r :<C-U>Rake<CR>
-  " autocmd User Rails nnoremap <buffer> <Leader>R :<C-U>.Rake<CR>
   autocmd User Rails Rnavcommand steps features/step_definitions -suffix=_steps.rb -glob=**/* -default=web()
   autocmd User Rails Rnavcommand blueprint spec/blueprints -suffix=_blueprint.rb -glob=**/* -default=model()
   autocmd User Rails Rnavcommand factory spec/factories -suffix=_factory.rb -glob=**/* -default=model()
 augroup END
-
-" Hide search highlighting
-map <Leader>h :set invhls<CR>
-
-" Opens an edit command with the path of the currently edited file filled in
-" Normal mode
-map <Leader>e :e <C-R>=expand("%:p:h") . "/"<CR>
-
-" Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/"<CR>
-
-" <Leader>F to begin searching with ack
-map <Leader>F :Ack<space>
-
-" Tab navigation
-nmap <Leader>tn :tabnext<CR>
-nmap <Leader>tp :tabprevious<CR>
-nmap <Leader>tt :tabnew<CR>
-
-" Yank from the cursor to the end of the line, to be consistent with C and D.
-nnoremap Y y$
-
-" Window mappings
-nmap <Leader>ww <C-w><C-w>
-nmap <Leader>wm <C-w><C-_>
-nmap <Leader>we <C-w><C-=>
-
-" Buffer mappings
-nmap <Leader>bd :bd<CR>
-nmap <Leader>bn :bn<CR>
-nmap <Leader>bp :bp<CR>

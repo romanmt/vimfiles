@@ -46,7 +46,6 @@ set formatoptions-=o "dont continue comments when pushing o/O
 
 " Invisible characters *********************************************************
 set listchars=trail:⋅,nbsp:⋅,tab:>-
-set list
 
 " Status Line *****************************************************************
 set statusline=%f "tail of the filename
@@ -239,8 +238,8 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set number  " Show line numbers
 set matchpairs+=<:>
-set vb t_vb=  " Turn off bell
-set visualbell " Visual bell
+"set visualbell t_vb=  " Turn off bell
+set novb 
 set ttimeoutlen=50  " Make Esc work faster
 
 " Gui Setup *******************************************************************
@@ -396,6 +395,9 @@ map j gj
 imap <down> <C-o>gj
 map E ge
 
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
+
 nnoremap Y y$
 
 map <silent> w <Plug>CamelCaseMotion_w
@@ -469,6 +471,9 @@ let NERDTreeMouseMode=1
 " Ignore
 let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','tags','\.png','\.jpg','\.gif']
 
+" Quit on open
+let NERDTreeQuitOnOpen=1
+
 " fuzzyfinder *****************************************************************
 
 " limit number of results shown for performance
@@ -489,6 +494,10 @@ let g:bufExplorerShowRelativePath=1
 let g:Tlist_GainFocus_On_ToggleOpen=1
 let g:Tlist_Close_On_Select=1
 let g:Tlist_WinWidth=50
+
+" yankring
+let g:yankring_replace_n_nkey = '<Leader>yn'
+let g:yankring_replace_n_pkey = '<Leader>yp'
 
 augroup malkomalko
   autocmd!

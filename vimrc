@@ -398,6 +398,8 @@ map E ge
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
 
+"map <C-s> :w !sudo tee %<CR>
+
 nnoremap Y y$
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>

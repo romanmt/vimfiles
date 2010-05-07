@@ -26,10 +26,14 @@ set autoread
 " store lots of :cmdline history
 set history=1000
 
+" set autowrite
+set hidden
+
 set showcmd "show incomplete cmds down the bottom
 set showmode "show current mode down the bottom
+set shortmess=atI
 
-" When scrolling off-screen do so 3 lines at a time, not 1
+" When scrolling off-screen do so 5 lines at a time, not 1
 set scrolloff=5
 set sidescrolloff=7
 set sidescroll=1
@@ -395,6 +399,8 @@ map <C-n> :cn<CR>
 map <C-p> :cp<CR>
 
 nnoremap Y y$
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
@@ -465,7 +471,7 @@ let NERDTreeHijackNetrw=1
 let NERDTreeMouseMode=1
 
 " Ignore
-let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','tags','\.png','\.jpg','\.gif']
+let NERDTreeIgnore=['\.git','\.DS_Store','\.pdf','\.png','\.jpg','\.gif']
 
 " Quit on open
 let NERDTreeQuitOnOpen=1
@@ -494,6 +500,9 @@ let g:Tlist_WinWidth=50
 " yankring
 let g:yankring_replace_n_nkey = '<Leader>yn'
 let g:yankring_replace_n_pkey = '<Leader>yp'
+
+" zencoding
+let g:user_zen_leader_key = '<c-k>'
 
 augroup malkomalko
   autocmd!

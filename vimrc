@@ -243,16 +243,11 @@ set novb
 set ttimeoutlen=50  " Make Esc work faster
 
 " Gui Setup *******************************************************************
-if ! has("gui_running")
-    set t_Co=256
-    set background=light 
-    colorscheme peaksea
-endif
-
 if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
-        colorscheme darkspectrum
+        "colorscheme darkspectrum
+        colorscheme mayansmoke
 				set guifont=Inconsolata\ 16
         set guioptions-=T
         set guioptions-=m
@@ -261,7 +256,8 @@ if has("gui_running")
 				set lines=999
         set columns=999
     else
-        colorscheme darkspectrum
+        "colorscheme darkspectrum
+        colorscheme mayansmoke
         set guitablabel=%M%t
         set lines=999
         set columns=999

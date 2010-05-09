@@ -504,6 +504,9 @@ let g:rubytest_cmd_example = "spec -f n %p -l '%c'"
 let g:rubytest_cmd_feature = "cucumber %p"
 let g:rubytest_cmd_story = "cucumber %p -n '%c'"
 
+" rsense
+let g:rsenseHome = "~/src/rsense"
+
 augroup malkomalko
   autocmd!
 

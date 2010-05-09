@@ -242,7 +242,7 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set number  " Show line numbers
 set matchpairs+=<:>
-"set visualbell t_vb=  " Turn off bell
+set visualbell t_vb=  " Turn off bell
 set novb 
 set ttimeoutlen=50  " Make Esc work faster
 
@@ -250,21 +250,19 @@ set ttimeoutlen=50  " Make Esc work faster
 if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
-        "colorscheme darkspectrum
         colorscheme mayansmoke
 				set guifont=Inconsolata\ 16
         set guioptions-=T
         set guioptions-=m
         set guioptions+=c
         set guioptions-=rL
-				set lines=999
-        set columns=999
+				set lines=100
+        set columns=185
     else
-        "colorscheme darkspectrum
-        colorscheme mayansmoke
+        colorscheme darkspectrum
         set guitablabel=%M%t
-        set lines=999
-        set columns=999
+        set lines=100
+        set columns=185
     endif
     
     if has("gui_mac") || has("gui_macvim")
@@ -297,26 +295,17 @@ endif
 " |                              Commands                                     |
 " -----------------------------------------------------------------------------
 
-"snipmate setup
-source ~/.vim/bundles/snipmate/snippets/support_functions.vim
-autocmd vimenter * call s:SetupSnippets()
-function! s:SetupSnippets()
-    "if we're in a rails env then read in the rails snippets
-    if filereadable("./config/environment.rb")
-        call ExtractSnips("~/.vim/bundles/snipmate/snippets/ruby-rails", "ruby")
-        call ExtractSnips("~/.vim/bundles/snipmate/snippets/eruby-rails", "eruby")
-    endif
-
-    call ExtractSnips("~/.vim/bundles/snipmate/snippets/html", "eruby")
-    call ExtractSnips("~/.vim/bundles/snipmate/snippets/html", "xhtml")
-    call ExtractSnips("~/.vim/bundles/snipmate/snippets/html", "php")
-endfunction
-
 " Add RebuildTagsFile function/command
 function! s:RebuildTagsFile()
   !ctags -R --exclude=.svn --exclude=.git --exclude=coverage --exclude=files --exclude=public --exclude=log --exclude=tmp *
 endfunction
 command! -nargs=0 RebuildTagsFile call s:RebuildTagsFile()
+
+" CleanScript 
+function! s:CleanScript()
+  :%s/\+$//
+endfunction
+command! -nargs=0 CleanScript call s:CleanScript() 
 
 " Align Fit Tables
 function! s:alignFitTables()
@@ -398,8 +387,6 @@ map E ge
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
 
-"map <C-s> :w !sudo tee %<CR>
-
 nnoremap Y y$
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
@@ -421,6 +408,7 @@ nmap <Leader>bd :bd<CR>
 nmap <Leader>bn :bn<CR>
 nmap <Leader>bp :bp<CR>
 map <Leader>c :Rcontroller<space>
+map <Leader>cp :CleanScript<CR>
 map <Leader>e :e <C-R>=expand("%:p:h") . "/"<CR>
 map <silent> <Leader>f :FuzzyFinderTextMate<CR>
 map <Leader>F :Ack<space>
@@ -505,6 +493,16 @@ let g:yankring_replace_n_pkey = '<Leader>yp'
 
 " zencoding
 let g:user_zen_leader_key = '<c-k>'
+
+" rubytest
+let g:rubytest_in_quickfix = 0
+
+let g:rubytest_cmd_test = "ruby %p"
+let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
+let g:rubytest_cmd_spec = "spec -f n %p"
+let g:rubytest_cmd_example = "spec -f n %p -l '%c'"
+let g:rubytest_cmd_feature = "cucumber %p"
+let g:rubytest_cmd_story = "cucumber %p -n '%c'"
 
 augroup malkomalko
   autocmd!

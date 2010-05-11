@@ -9,8 +9,12 @@ snippet des
 		${2}
 	end
 snippet desc
-	describe ${1:`substitute(Filename(), '^.', '\u&', '')`}${2:, "${3:description}"} do
-		${4}
+	describe ${1:Subject} do
+		${2}
+	end
+snippet descd
+	describe ${1:Subject}, "${2:description}" do
+		${3}
 	end
 snippet it
 	it "${1}" do

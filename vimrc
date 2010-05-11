@@ -29,6 +29,9 @@ set history=1000
 " set autowrite
 set hidden
 
+" no wrapping
+set nowrap
+
 " window heights/widths
 set wmh=0
 set wmw=0
@@ -267,12 +270,12 @@ if has("gui_running")
   else
     colorscheme darkspectrum
     set guitablabel=%M%t
-    set lines=100
-    set columns=185
+    set lines=38
+    set columns=139
   endif
 
   if has("gui_mac") || has("gui_macvim")
-    set guifont=Inconsolata:h18
+    set guifont=Inconsolata:h24
     set fuoptions=maxvert,maxhorz
     set guioptions-=T
     set guioptions-=m
@@ -430,6 +433,7 @@ noremap <Leader>r :ConqueTermSplit<space>
 map <Leader>s :Rspec<space>
 noremap <Leader>S :split<cr>
 map <Leader>sc :RScontroller<space>
+map <Leader>se :split <C-R>=expand("%:p:h") . "/"<CR>
 map <Leader>sm :RSmodel<space>
 map <Leader>sp :RSsteps<space>
 map <Leader>ss :RSspec<space>

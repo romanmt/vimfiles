@@ -7,8 +7,8 @@ set nocompatible
 syntax on
 
 " Change <Leader> and <LocalLeader>
-let mapleader = ","
-let maplocalleader = ","
+let mapleader = "'"
+let maplocalleader = "'"
 
 " Set temporary directory (don't litter local dir with swp/tmp files)
 set directory=/tmp/
@@ -259,7 +259,7 @@ set ttimeoutlen=50  " Make Esc work faster
 if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
-    colorscheme mayansmoke
+    colorscheme ir_black
     set guifont=Inconsolata\ 16
     set guioptions-=T
     set guioptions-=m
@@ -268,10 +268,10 @@ if has("gui_running")
     set lines=100
     set columns=185
   else
-    colorscheme darkspectrum
+    colorscheme ir_black
     set guitablabel=%M%t
-    set lines=38
-    set columns=139
+    set lines=100
+    set columns=185
   endif
 
   if has("gui_mac") || has("gui_macvim")
@@ -457,6 +457,9 @@ nmap <Leader>wm <C-w><C-_>
 nmap <leader>ww <C-w><C-w>
 noremap <Leader>y :YRShow<CR>
 noremap <Leader>] :RebuildTagsFile<CR>
+
+nmap <Leader>w :w<cr>
+nmap <Leader>q :q<cr>
 
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |

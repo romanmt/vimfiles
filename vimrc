@@ -260,7 +260,7 @@ if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
     colorscheme ir_black
-    set guifont=Inconsolata\ 16
+    set guifont=Inconsolata\ 10
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
@@ -460,6 +460,7 @@ noremap <Leader>] :RebuildTagsFile<CR>
 
 nmap <Leader>w :w<cr>
 nmap <Leader>q :q<cr>
+nmap <Leader>Q :q!<cr>
 
 " -----------------------------------------------------------------------------  
 " |                              Plug-ins                                     |

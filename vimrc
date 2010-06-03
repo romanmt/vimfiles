@@ -312,7 +312,8 @@ command! -nargs=0 RebuildTagsFile call s:RebuildTagsFile()
 
 " CleanScript 
 function! s:CleanScript()
-  :%s/\+$//
+  :%s/
+\+$//
 endfunction
 command! -nargs=0 CleanScript call s:CleanScript() 
 
@@ -381,15 +382,15 @@ augroup END
 nnoremap ' `
 nnoremap ` '
 
-imap hh <Space>=><Space>"
-imap jj <Esc>
-imap uu _
+" imap hh <Space>=><Space>"
+imap <C-j> <Esc>
+" imap uu _
 
-map <up> gk
-map k gk
+nmap <up> gk
+nmap k gk
 imap <up> <C-o>gk
-map <down> gj
-map j gj
+nmap <down> gj
+nmap j gj
 imap <down> <C-o>gj
 map E ge
 
@@ -520,6 +521,10 @@ let g:rubytest_cmd_story = "cucumber %p -n '%c'"
 
 " rsense
 let g:rsenseHome = "~/src/rsense"
+
+" supertab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 augroup malkomalko
   autocmd!

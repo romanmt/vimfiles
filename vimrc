@@ -560,7 +560,7 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " vimclojure
 let vimclojureRoot = vimfiles."/bundles/vimclojure"
-let vimclojure#HighlightBuildins=1
+let vimclojure#HighlightBuiltins=1
 let vimclojure#HighlightContrib=1
 let vimclojure#DynamicHighlighting=1
 let vimclojure#ParenRainbow=1

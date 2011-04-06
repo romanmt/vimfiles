@@ -264,7 +264,7 @@ if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
     colorscheme ir_black
-    set guifont=Inconsolata\ 10
+    set guifont=Inconsolata\ 13
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c

@@ -1,11 +1,18 @@
-filetype off
-call pathogen#runtime_prepend_subdirectories(expand('~/.vim/bundles'))
+" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
+" call pathogen#runtime_prepend_subdirectories(expand('~/.vim/bundles'))
+call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+
+filetype off
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 syntax on
+
+" File Stuff ******************************************************************
+filetype plugin indent on
+" To show current filetype use: set filetype
 
 " Change <Leader> and <LocalLeader>
 let mapleader = "'"
@@ -244,10 +251,6 @@ set incsearch  " incremental search, search as you type
 set ignorecase " Ignore case when searching 
 set smartcase  " Ignore case when searching lowercase
 
-" File Stuff ******************************************************************
-filetype plugin indent on
-" To show current filetype use: set filetype
-
 " Misc ************************************************************************
 set backspace=indent,eol,start
 set number  " Show line numbers
@@ -261,7 +264,7 @@ if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
     colorscheme ir_black
-    set guifont=Inconsolata\ 10
+    set guifont=Inconsolata\ 13
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
@@ -299,6 +302,17 @@ if has("gui_running")
     vmap <D-[> <<
     imap <D-[> <C-O><<
   endif
+endif
+
+" Let's remember somethings, like where the .vim folder is
+if has("wind32") || has("wind64")
+    let windows=1
+    let vimfiles=$HOME . "/vimfiles"
+    let sep=";"
+else
+  let windows=0
+  let vimfiles=$HOME . "/.vim"
+  let sep=":"
 endif
 
 " -----------------------------------------------------------------------------  
@@ -376,13 +390,30 @@ augroup QFixToggle
   autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 
+" Execute open rspec buffer
+" Thanks to Ian Smith-Heisters
+function! RunSpec(args)
+ if exists("b:rails_root") && filereadable(b:rails_root . "/script/spec")
+   let spec = b:rails_root . "/script/spec"
+ else
+   let spec = "spec"
+ end 
+ let cmd = ":! " . spec . " % -cfn " . a:args
+ execute cmd 
+endfunction
+ 
 " -----------------------------------------------------------------------------  
 " |                              Mappings                                     |
 " -----------------------------------------------------------------------------
 
-nnoremap ' `
-nnoremap ` '
+" Mappings
+" run one rspec example or describe block based on cursor position
+map !s :call RunSpec("-l " . <C-r>=line('.')<CR>)
+" run full rspec file
+map !S :call RunSpec("")<S-Del>
 
+
+nnoremap ' `
 " imap hh <Space>=><Space>"
 imap <C-j> <Esc>
 " imap uu _
@@ -528,6 +559,7 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " vimclojure
+let vimclojureRoot = vimfiles."/bundles/vimclojure"
 let vimclojure#HighlightBuiltins=1
 let vimclojure#HighlightContrib=1
 let vimclojure#DynamicHighlighting=1

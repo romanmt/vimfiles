@@ -1,3 +1,4 @@
+filetype off
 call pathogen#runtime_prepend_subdirectories(expand('~/.vim/bundles'))
 call pathogen#helptags()
 
@@ -525,6 +526,12 @@ let g:rsenseHome = "~/src/rsense"
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+" vimclojure
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
 
 augroup malkomalko
   autocmd!

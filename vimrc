@@ -415,7 +415,7 @@ map !S :call RunSpec("")<S-Del>
 
 nnoremap ' `
 " imap hh <Space>=><Space>"
-imap <C-j> <Esc>
+imap jj <Esc>
 " imap uu _
 
 nmap <up> gk

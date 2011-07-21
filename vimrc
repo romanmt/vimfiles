@@ -16,7 +16,7 @@ Bundle 'camelcasemotion'
 " Shows Nth match out of M matches
 Bundle 'IndexedSearch' 
 " um, JQuery
-Bundle 'JQuery'
+Bundle 'jQuery'
 " Fuzzy matching
 Bundle 'matchit.zip'     
 " Javascript tags
@@ -332,7 +332,7 @@ if has("gui_running")
   endif
 endif
 
-colorscheme ir_black
+colorscheme jellybeans 
 
 " Let's remember somethings, like where the .vim folder is
 if has("wind32") || has("wind64")

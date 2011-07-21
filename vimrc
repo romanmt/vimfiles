@@ -1,17 +1,62 @@
-" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
-" call pathogen#runtime_prepend_subdirectories(expand('~/.vim/bundles'))
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
+set nocompatible
 filetype off
 
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-syntax on
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-" File Stuff ******************************************************************
+" Bundles
+" Vundle itself
+Bundle 'gmarik/vundle'   
+" Explore and manage open buffers
+Bundle 'bufexplorer.zip' 
+" Switch to last buffer
+Bundle 'bufmru.vim'      
+" Motion through camelcase and _ notation
+Bundle 'camelcasemotion' 
+" Shows Nth match out of M matches
+Bundle 'IndexedSearch' 
+" um, JQuery
+Bundle 'JQuery'
+" Fuzzy matching
+Bundle 'matchit.zip'     
+" Javascript tags
+Bundle 'taglist-plus'    
+" Maintains history of previous yanks
+Bundle 'YankRing.vim'
+" Fast file opener
+Bundle 'https://github.com/wincent/Command-T.git'
+" Fast code commenting
+Bundle 'https://github.com/scrooloose/nerdcommenter.git'
+" Project folder
+Bundle 'https://github.com/scrooloose/nerdtree.git'
+" Code snipets
+Bundle 'https://github.com/malkomalko/snipmate.vim.git'
+" Tab completion
+Bundle 'https://github.com/ervandew/supertab.git'
+" Text alignment
+Bundle 'https://github.com/godlygeek/tabular.git'
+" Autoclose parens etc.
+Bundle 'https://github.com/Townk/vim-autoclose.git'
+" Cucumber
+Bundle 'https://github.com/tpope/vim-cucumber.git'
+" Easy text motions !conflict with Command-T (see docs)
+Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
+" Git command wrapper
+Bundle 'https://github.com/tpope/vim-fugitive.git'
+" Jade
+Bundle 'https://github.com/digitaltoad/vim-jade.git'
+" Js
+Bundle 'https://github.com/pangloss/vim-javascript.git'
+" Date formatting
+Bundle 'https://github.com/tpope/vim-speeddating.git'
+" Stylus
+Bundle 'https://github.com/wavded/vim-stylus.git'
+" Quoting and blocking 
+Bundle 'https://github.com/tpope/vim-surround.git'
+
+syntax on
 filetype plugin indent on
+
 " To show current filetype use: set filetype
 
 " Change <Leader> and <LocalLeader>
@@ -263,8 +308,7 @@ set ttimeoutlen=50  " Make Esc work faster
 if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
-    colorscheme ir_black
-    set guifont=Inconsolata\ 13
+    set guifont=Inconsolata\ 14
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
@@ -272,37 +316,23 @@ if has("gui_running")
     set lines=100
     set columns=185
   else
-    colorscheme ir_black
     set guitablabel=%M%t
     set lines=100
     set columns=185
   endif
 
   if has("gui_mac") || has("gui_macvim")
-    set guifont=Inconsolata:h24
+    set guifont=Inconsolata:h14
     set fuoptions=maxvert,maxhorz
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
     set guioptions-=rL
-
-    " bind command-/ to toggle comment
-    nmap <D-/> ,c<space>
-    vmap <D-/> ,c<space>
-    imap <D-/> <C-O>,c<space>
-    let NERDShutUp = 1
-
-    " bind command-] to shift right
-    nmap <D-]> >>
-    vmap <D-]> >>
-    imap <D-]> <C-O>>>
-
-    " bind command-[ to shift left
-    nmap <D-[> <<
-    vmap <D-[> <<
-    imap <D-[> <C-O><<
+    set colorcolumn=81
   endif
 endif
+
+colorscheme ir_black
 
 " Let's remember somethings, like where the .vim folder is
 if has("wind32") || has("wind64")
@@ -407,11 +437,6 @@ endfunction
 " -----------------------------------------------------------------------------
 
 " Mappings
-" run one rspec example or describe block based on cursor position
-map !s :call RunSpec("-l " . <C-r>=line('.')<CR>)
-" run full rspec file
-map !S :call RunSpec("")<S-Del>
-
 
 nnoremap ' `
 " imap hh <Space>=><Space>"
@@ -449,7 +474,6 @@ noremap <Leader>at :AlignFitTables<CR>
 nmap <Leader>bd :bd<CR>
 nmap <Leader>bn :bn<CR>
 nmap <Leader>bp :bp<CR>
-map <Leader>c :Rcontroller<space>
 map <Leader>cp :CleanScript<CR>
 map <Leader>e :e <C-R>=expand("%:p:h") . "/"<CR>
 map <silent> <Leader>f :FuzzyFinderTextMate<CR>
@@ -458,32 +482,16 @@ map <Leader>h :set invhls<CR>
 noremap <Leader>i :set list!<CR>
 noremap <Leader>l :HighlightLongLines<CR>
 noremap <Leader>L :HighlightLongLines 1000<CR>
-map <Leader>m :Rmodel<space>
 noremap <Leader>n :NERDTreeToggle<CR>
-map <Leader>p :Rsteps<space>
 map <silent> <leader>q :QFix<CR>
 noremap <Leader>r :ConqueTermSplit<space>
-map <Leader>s :Rspec<space>
 noremap <Leader>S :split<cr>
-map <Leader>sc :RScontroller<space>
 map <Leader>se :split <C-R>=expand("%:p:h") . "/"<CR>
-map <Leader>sm :RSmodel<space>
-map <Leader>sp :RSsteps<space>
-map <Leader>ss :RSspec<space>
-map <Leader>su :RSintegrationtest<space>
-map <Leader>sv :RSview<space>
-map <Leader>tc :RTcontroller<space>
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/"<CR>
 noremap <Leader>tl :TlistToggle<CR>
-map <Leader>tm :RTmodel<space>
 nmap <Leader>tn :tabnext<CR>
 nmap <Leader>tp :tabprevious<CR>
-map <Leader>ts :RTspec<space>
 nmap <Leader>tt :tabnew<CR>
-map <Leader>tu :RTintegrationtest<space>
-map <Leader>tv :RTview<space>
-map <Leader>u :Rintegrationtest<space>
-map <Leader>v :Rview<space>
 noremap <Leader>V :vsp<cr>
 nmap <Leader>we <C-w><C-=>
 nmap <Leader>wm <C-w><C-_>
@@ -565,7 +573,10 @@ let vimclojure#HighlightContrib=1
 let vimclojure#DynamicHighlighting=1
 let vimclojure#ParenRainbow=1
 
-augroup malkomalko
+" easymotion
+let g:EasyMotion_leader_key = '<Leader>m'
+
+augroup custom
   autocmd!
 
   autocmd CursorHold,BufWritePost,BufReadPost,BufLeave *

@@ -23,8 +23,6 @@ Bundle 'matchit.zip'
 Bundle 'taglist-plus'    
 " Maintains history of previous yanks
 Bundle 'YankRing.vim'
-" Fast file opener
-Bundle 'https://github.com/wincent/Command-T.git'
 " Fast code commenting
 Bundle 'https://github.com/scrooloose/nerdcommenter.git'
 " Project folder
@@ -39,7 +37,7 @@ Bundle 'https://github.com/godlygeek/tabular.git'
 Bundle 'https://github.com/Townk/vim-autoclose.git'
 " Cucumber
 Bundle 'https://github.com/tpope/vim-cucumber.git'
-" Easy text motions !conflict with Command-T (see docs)
+" Easy text motions
 Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
 " Git command wrapper
 Bundle 'https://github.com/tpope/vim-fugitive.git'
@@ -53,6 +51,8 @@ Bundle 'https://github.com/tpope/vim-speeddating.git'
 Bundle 'https://github.com/wavded/vim-stylus.git'
 " Quoting and blocking 
 Bundle 'https://github.com/tpope/vim-surround.git'
+" File finding
+Bundle 'https://github.com/rphillips/fuzzyfinder.git'
 
 syntax on
 filetype plugin indent on
@@ -476,7 +476,6 @@ nmap <Leader>bn :bn<CR>
 nmap <Leader>bp :bp<CR>
 map <Leader>cp :CleanScript<CR>
 map <Leader>e :e <C-R>=expand("%:p:h") . "/"<CR>
-map <silent> <Leader>f :FuzzyFinderTextMate<CR>
 map <Leader>F :Ack<space>
 map <Leader>h :set invhls<CR>
 noremap <Leader>i :set list!<CR>
@@ -495,11 +494,18 @@ nmap <Leader>tt :tabnew<CR>
 noremap <Leader>V :vsp<cr>
 nmap <Leader>we <C-w><C-=>
 nmap <Leader>wm <C-w><C-_>
-nmap <leader>ww <C-w><C-w>
+nmap <Leader>ww <C-w><C-w>
+nmap <Leader>wv <C-w><C-v>
+nmap <Leader>ws <C-w><C-s>
+nmap <Leader>wj <C-w><C-j>
+nmap <Leader>wk <C-w><C-k>
+nmap <Leader>wh <C-w><C-h>
+nmap <Leader>wl <C-w><C-l>
+nmap <Leader>wc <C-w><C-c>
 noremap <Leader>y :YRShow<CR>
 noremap <Leader>] :RebuildTagsFile<CR>
 
-nmap <Leader>w :w<cr>
+nmap <Leader>s :w<cr>
 nmap <Leader>q :q<cr>
 nmap <Leader>Q :q!<cr>
 

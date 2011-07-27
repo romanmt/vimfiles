@@ -1,2 +1,4 @@
 bundle
 .netrwhist
+.DS_Store
+**/.DS_Store

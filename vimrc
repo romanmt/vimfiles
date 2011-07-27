@@ -322,13 +322,13 @@ if has("gui_running")
   endif
 
   if has("gui_mac") || has("gui_macvim")
-    set guifont=Inconsolata:h14
+    set guifont=Inconsolata:h18
     set fuoptions=maxvert,maxhorz
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
     set guioptions-=rL
-    set colorcolumn=81
+    " set colorcolumn=81
   endif
 endif
 

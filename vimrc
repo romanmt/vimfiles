@@ -507,6 +507,7 @@ noremap <Leader>] :RebuildTagsFile<CR>
 
 nmap <Leader>s :w<cr>
 nmap <Leader>q :q<cr>
+nmap <Leader>sq :wq<cr>
 nmap <Leader>Q :q!<cr>
 
 " -----------------------------------------------------------------------------  

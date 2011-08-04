@@ -308,7 +308,7 @@ set ttimeoutlen=50  " Make Esc work faster
 if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
-    set guifont=Inconsolata\ 14
+    set guifont=Inconsolata\ 16
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
@@ -502,6 +502,7 @@ nmap <Leader>wk <C-w><C-k>
 nmap <Leader>wh <C-w><C-h>
 nmap <Leader>wl <C-w><C-l>
 nmap <Leader>wc <C-w><C-c>
+nmap <Leader>wr <C-w><C-r>
 noremap <Leader>y :YRShow<CR>
 noremap <Leader>] :RebuildTagsFile<CR>
 

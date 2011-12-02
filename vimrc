@@ -53,6 +53,8 @@ Bundle 'https://github.com/wavded/vim-stylus.git'
 Bundle 'https://github.com/tpope/vim-surround.git'
 " File finding
 Bundle 'https://github.com/rphillips/fuzzyfinder.git'
+" Coffee Script
+Bundle 'https://github.com/vim-scripts/vim-coffee-script.git'
 
 syntax on
 filetype plugin indent on

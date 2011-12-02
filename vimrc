@@ -422,6 +422,31 @@ augroup QFixToggle
   autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 
+" Run test files in buffer
+function! s:SetTestFile()
+  let g:CurrentTestFile = expand("%")
+  let g:CurrentTestExt  = expand("%:e")
+endfunction
+command! -nargs=0 SetTestFile call s:SetTestFile()
+
+function! s:RunTestFile()
+  :w
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+
+  if !exists("g:CurrentTestFile")
+    let g:CurrentTestFile = expand("%")
+    let g:CurrentTestExt  = expand("%:e")
+  endif
+
+  if g:CurrentTestExt == "rb"
+    execute "w\|!spec --color --format nested " . g:CurrentTestFile
+  elseif g:CurrentTestExt == "js"
+    execute "w\|!TEST=true NODE_PATH=test:lib expresso -t 250 -I test -I lib
+      \ -s -b " . g:CurrentTestFile . " >/dev/null"
+  endif
+endfunction
+command! -nargs=0 RunTestFile call s:RunTestFile()
+
 " Execute open rspec buffer
 " Thanks to Ian Smith-Heisters
 function! RunSpec(args)
@@ -485,7 +510,9 @@ noremap <Leader>l :HighlightLongLines<CR>
 noremap <Leader>L :HighlightLongLines 1000<CR>
 noremap <Leader>n :NERDTreeToggle<CR>
 map <silent> <leader>q :QFix<CR>
-noremap <Leader>r :ConqueTermSplit<space>
+map <Leader>r :RunTestFile<CR>
+map <Leader>; :SetTestFile<CR>
+noremap <Leader>R :ConqueTermSplit<space>
 noremap <Leader>S :split<cr>
 map <Leader>se :split <C-R>=expand("%:p:h") . "/"<CR>
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/"<CR>

@@ -43,7 +43,7 @@ Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
 Bundle 'https://github.com/tpope/vim-fugitive.git'
 " Jade
 Bundle 'https://github.com/digitaltoad/vim-jade.git'
-" Js
+" Js'
 Bundle 'https://github.com/pangloss/vim-javascript.git'
 " Date formatting
 Bundle 'https://github.com/tpope/vim-speeddating.git'
@@ -53,6 +53,8 @@ Bundle 'https://github.com/wavded/vim-stylus.git'
 Bundle 'https://github.com/tpope/vim-surround.git'
 " File finding
 Bundle 'https://github.com/rphillips/fuzzyfinder.git'
+" Coffee script formatting
+Bundle 'https://github.com/vim-scripts/vim-coffee-script.git'
 
 syntax on
 filetype plugin indent on

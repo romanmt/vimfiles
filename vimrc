@@ -57,6 +57,8 @@ Bundle 'https://github.com/rphillips/fuzzyfinder.git'
 Bundle 'https://github.com/vim-scripts/vim-coffee-script.git'
 " Erlang
 Bundle 'https://github.com/vim-scripts/Vimerl.git'
+" Command-T
+Bundle 'https://github.com/wincent/Command-T.git'
 
 syntax on
 filetype plugin indent on

@@ -1,6 +1,5 @@
 set nocompatible
-filetype plugin on
-
+filetype off 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -60,8 +59,9 @@ Bundle 'https://github.com/vim-scripts/Vimerl.git'
 " Command-T
 Bundle 'https://github.com/wincent/Command-T.git'
 
-syntax on
 filetype plugin indent on
+filetype plugin on
+syntax on
 
 " To show current filetype use: set filetype
 

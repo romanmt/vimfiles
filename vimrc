@@ -314,7 +314,7 @@ set ttimeoutlen=50  " Make Esc work faster
 if has("gui_running")
   if has("gui_gnome")
     set term=gnome-256color
-    set guifont=Inconsolata\ 16
+    set guifont=Inconsolata\ 18
     set guioptions-=T
     set guioptions-=m
     set guioptions+=c
@@ -328,7 +328,7 @@ if has("gui_running")
   endif
 
   if has("gui_mac") || has("gui_macvim")
-    set guifont=Inconsolata:h18
+    set guifont=Inconsolata:h20
     set fuoptions=maxvert,maxhorz
     set guioptions-=T
     set guioptions-=m

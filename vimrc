@@ -423,7 +423,7 @@ command! -nargs=0 SetTestFile call s:SetTestFile()
 
 function! s:RunTestFile()
   :w
-  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !clear
 
   if !exists("g:CurrentTestFile")
     let g:CurrentTestFile = expand("%")
@@ -433,8 +433,7 @@ function! s:RunTestFile()
   if g:CurrentTestExt == "rb"
     execute "w\|!spec --color --format nested " . g:CurrentTestFile
   elseif g:CurrentTestExt == "js"
-    execute "w\|!TEST=true NODE_PATH=test:lib expresso -t 250 -I test -I lib
-      \ -s -b " . g:CurrentTestFile . " >/dev/null"
+    execute "w\|!TEST=true NODE_PATH=./lib:./test/unit mocha -u bdd -R spec -c " . g:CurrentTestFile 
   endif
 endfunction
 command! -nargs=0 RunTestFile call s:RunTestFile()

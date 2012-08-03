@@ -12,16 +12,10 @@ Bundle 'bufexplorer.zip'
 Bundle 'bufmru.vim'      
 " Motion through camelcase and _ notation
 Bundle 'camelcasemotion' 
-" Shows Nth match out of M matches
-Bundle 'IndexedSearch' 
 " um, JQuery
 Bundle 'jQuery'
 " Fuzzy matching
 Bundle 'matchit.zip'     
-" Javascript tags
-Bundle 'taglist-plus'    
-" Maintains history of previous yanks
-Bundle 'YankRing.vim'
 " Fast code commenting
 Bundle 'https://github.com/scrooloose/nerdcommenter.git'
 " Project folder
@@ -32,8 +26,6 @@ Bundle 'https://github.com/malkomalko/snipmate.vim.git'
 Bundle 'https://github.com/ervandew/supertab.git'
 " Text alignment
 Bundle 'https://github.com/godlygeek/tabular.git'
-" Autoclose parens etc.
-Bundle 'https://github.com/Townk/vim-autoclose.git'
 " Cucumber
 Bundle 'https://github.com/tpope/vim-cucumber.git'
 " Easy text motions
@@ -48,6 +40,8 @@ Bundle 'https://github.com/pangloss/vim-javascript.git'
 Bundle 'https://github.com/tpope/vim-speeddating.git'
 " Stylus
 Bundle 'https://github.com/wavded/vim-stylus.git'
+" Less
+Bundle 'https://github.com/groenewege/vim-less.git'
 " Quoting and blocking 
 Bundle 'https://github.com/tpope/vim-surround.git'
 " File finding
@@ -355,12 +349,6 @@ endif
 " |                              Commands                                     |
 " -----------------------------------------------------------------------------
 
-" Add RebuildTagsFile function/command
-function! s:RebuildTagsFile()
-  !ctags -R --exclude=.svn --exclude=.git --exclude=coverage --exclude=files --exclude=public --exclude=log --exclude=tmp *
-endfunction
-command! -nargs=0 RebuildTagsFile call s:RebuildTagsFile()
-
 " CleanScript 
 function! s:CleanScript()
   :%s/
@@ -536,8 +524,6 @@ nmap <Leader>wh <C-w><C-h>
 nmap <Leader>wl <C-w><C-l>
 nmap <Leader>wc <C-w><C-c>
 nmap <Leader>wr <C-w><C-r>
-noremap <Leader>y :YRShow<CR>
-noremap <Leader>] :RebuildTagsFile<CR>
 
 nmap <Leader>s :w<cr>
 nmap <Leader>q :q<cr>
@@ -577,31 +563,6 @@ let g:fuzzy_ceiling=20000
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowDirectories=0
 let g:bufExplorerShowRelativePath=1
-
-" taglist *********************************************************************
-let g:Tlist_GainFocus_On_ToggleOpen=1
-let g:Tlist_Close_On_Select=1
-let g:Tlist_WinWidth=50
-
-" yankring
-let g:yankring_replace_n_nkey = '<Leader>yn'
-let g:yankring_replace_n_pkey = '<Leader>yp'
-
-" zencoding
-let g:user_zen_leader_key = '<c-k>'
-
-" rubytest
-let g:rubytest_in_quickfix = 0
-
-let g:rubytest_cmd_test = "ruby %p"
-let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
-let g:rubytest_cmd_spec = "spec -f n %p"
-let g:rubytest_cmd_example = "spec -f n %p -l '%c'"
-let g:rubytest_cmd_feature = "cucumber %p"
-let g:rubytest_cmd_story = "cucumber %p -n '%c'"
-
-" rsense
-let g:rsenseHome = "~/src/rsense"
 
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
